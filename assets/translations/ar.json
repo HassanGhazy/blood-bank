@@ -12,7 +12,7 @@
     "welcomeBack": "مرحباً بعودتك",
     "notExist": "غير متوفر",
     "dateCreatedAt": "التبرع لاول مرة",
-    "dateUpdatedAt": "آخر تحديث",
+    "dateUpdatedAt": "الساعة",
     "quantity": "الكمية",
     "donationDate": "تاريخ التبرع",
     "change": "تغيير اللغة",
@@ -24,5 +24,7 @@
     "dateOfBirth": "تاريخ الميلاد",
     "identityNumber": "رقم الهوية",
     "noDonotion": "لا يوجد أي سجلات تبرع مسجلة",
+    "bankBlood": "بنك الدم المركزي",
+    "goto": "اذهب الى",
     "hospital": "مستشفى الشفاء"
 }

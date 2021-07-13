@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:blood_bank/helper/storge.dart';
 import 'package:blood_bank/models/donor.dart';
 import 'package:blood_bank/models/person_donor.dart';
 import 'package:blood_bank/models/user.dart';
@@ -22,9 +21,6 @@ class LoginProvider with ChangeNotifier {
   Future<void> login(
       String email, String password, BuildContext context) async {
     var response;
-    bool? log = await shared.getData("login").then((value) {
-      print("value $value");
-    });
 
     try {
       logInLoading = true;
@@ -40,15 +36,14 @@ class LoginProvider with ChangeNotifier {
           });
 
       if (response.statusCode == 200) {
-        shared.setData("login", true);
         logInLoading = false;
         final Map<String, dynamic> extractData =
             json.decode(response.body) as Map<String, dynamic>;
+        print("extractData $extractData");
         _token = extractData['access_token'];
         _user = data(extractData['data'], _token);
       } else {
         logInLoading = false;
-        shared.setData("login", false);
         notifyListeners();
         return;
       }
@@ -107,6 +102,7 @@ class LoginProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         final Map<String, dynamic> extractData =
             json.decode(response.body) as Map<String, dynamic>;
+        print(extractData);
         _personDonor.addAll(getDataDonor(extractData['data']));
       }
     } catch (e) {
@@ -137,8 +133,6 @@ class LoginProvider with ChangeNotifier {
   }
 
   void logout(BuildContext context) {
-    shared.setData("login", false);
-
     Navigator.pushAndRemoveUntil(context,
         MaterialPageRoute<dynamic>(builder: (BuildContext context) {
       return Login();

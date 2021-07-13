@@ -1,4 +1,3 @@
-import 'package:blood_bank/helper/storge.dart';
 import 'package:blood_bank/provider/login_provider.dart';
 import 'package:blood_bank/screen/donor_screen.dart';
 import 'package:blood_bank/screen/home.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: Colors.red[400],
         ),
-        home: (shared.getData("login") == true) ? Home() : Login(),
+        home: Login(),
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

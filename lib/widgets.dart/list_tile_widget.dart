@@ -17,8 +17,7 @@ class ListTileWidget extends StatelessWidget {
             id!,
             style: TextStyle(fontSize: 14),
           ),
-          trailing: (id! == "${"dateCreatedAt".tr()}" ||
-                  id! == "${"dateUpdatedAt".tr()}")
+          trailing: (id! == "${"dateCreatedAt".tr()}")
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,

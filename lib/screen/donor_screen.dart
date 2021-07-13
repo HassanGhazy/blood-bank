@@ -14,6 +14,9 @@ class Donoecreen extends StatelessWidget {
     final String? updatedAt = data['updatedAt'];
     final String? createdAt = data['createdAt'];
     final String? name = data['name'];
+    print(updatedAt);
+    print(updatedAt);
+    print(updatedAt);
     return Scaffold(
       backgroundColor: color.grey,
       appBar: AppBar(
@@ -29,16 +32,17 @@ class Donoecreen extends StatelessWidget {
                 value: "$createdAt",
                 icon: Icons.date_range),
             ListTileWidget(
-                id: "donationDate".tr(),
-                value: "$dateDonate".substring(0, dateDonate!.indexOf(' ')),
-                icon: Icons.date_range),
+                id: "dateUpdatedAt".tr(),
+                value:
+                    "${updatedAt!.substring(updatedAt.indexOf('T') + 1, updatedAt.indexOf('.'))}",
+                icon: Icons.timer),
             ListTileWidget(
                 id: "quantity".tr(),
                 value: "$quantity",
                 icon: Icons.add_box_outlined),
             ListTileWidget(
-                id: "dateUpdatedAt".tr(),
-                value: "$updatedAt",
+                id: "donationDate".tr(),
+                value: "$dateDonate".substring(0, dateDonate!.indexOf(' ')),
                 icon: Icons.date_range),
           ],
         ),

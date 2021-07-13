@@ -19,7 +19,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   List<PersonDonor> items = [];
   bool _isLoaded = false;
-
+  String bloodType = "notExist".tr();
   @override
   void initState() {
     super.initState();
@@ -37,12 +37,39 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     final user = Provider.of<LoginProvider>(context, listen: false);
+    switch (user.user.donor!.bloodType) {
+      case "1":
+        bloodType = "A+";
+        break;
+      case "2":
+        bloodType = "A-";
+        break;
+      case "3":
+        bloodType = "B+";
+        break;
+      case "4":
+        bloodType = "B-";
+        break;
+      case "5":
+        bloodType = "AB+";
+        break;
+      case "6":
+        bloodType = "AB-";
+        break;
+      case "7":
+        bloodType = "O+";
+        break;
+      case "8":
+        bloodType = "O-";
+        break;
+      default:
+        bloodType = "notExist".tr();
+    }
     if (!_isLoaded) {
       getdata().whenComplete(() {
         if (!mounted) return;
-        setState(() {
-          _isLoaded = true;
-        });
+        _isLoaded = true;
+        setState(() {});
       });
     }
     return Scaffold(
@@ -79,40 +106,31 @@ class _HomeState extends State<Home> {
                     GenericListItem("${user.user.name}", "${user.user.email}"),
               ),
             ),
-            ((items.isEmpty))
-                ? Container()
-                : GenericListItem("basicData".tr(), " "),
-            ((items.isEmpty))
-                ? Container()
-                : Container(
-                    height: height / 2.5,
-                    child: Card(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            GenericListItem("firstName".tr(),
-                                user.user.donor?.firstName ?? "notExist".tr()),
-                            GenericListItem("lastName".tr(),
-                                user.user.donor?.lastName ?? "notExist".tr()),
-                            GenericListItem(
-                                "identityNumber".tr(),
-                                user.user.donor?.identityNumber ??
-                                    "notExist".tr()),
-                            GenericListItem("address".tr(),
-                                user.user.donor?.address ?? "notExist".tr()),
-                            GenericListItem("bloodType".tr(),
-                                user.user.donor?.bloodType ?? "notExist".tr()),
-                            GenericListItem(
-                                "dateOfBirth".tr(),
-                                user.user.donor?.dateOfBirth ??
-                                    "notExist".tr()),
-                            GenericListItem("phone".tr(),
-                                "${user.user.donor?.phone ?? "notExist".tr()}"),
-                          ],
-                        ),
-                      ),
-                    ),
+            GenericListItem("basicData".tr(), " "),
+            Container(
+              height: height / 2.5,
+              child: Card(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      GenericListItem("firstName".tr(),
+                          user.user.donor?.firstName ?? "notExist".tr()),
+                      GenericListItem("lastName".tr(),
+                          user.user.donor?.lastName ?? "notExist".tr()),
+                      GenericListItem("identityNumber".tr(),
+                          user.user.donor?.identityNumber ?? "notExist".tr()),
+                      GenericListItem("address".tr(),
+                          user.user.donor?.address ?? "notExist".tr()),
+                      GenericListItem("bloodType".tr(), bloodType),
+                      GenericListItem("dateOfBirth".tr(),
+                          user.user.donor?.dateOfBirth ?? "notExist".tr()),
+                      GenericListItem("phone".tr(),
+                          "${user.user.donor?.phone ?? "notExist".tr()}"),
+                    ],
                   ),
+                ),
+              ),
+            ),
             GenericListItem("donationDate".tr(), "quantity".tr()),
             Card(
               child: Container(

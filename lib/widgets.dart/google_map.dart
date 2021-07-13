@@ -11,8 +11,10 @@ class MyGoogleMap extends StatefulWidget {
 
 class _MyGoogleMapState extends State<MyGoogleMap> {
   static final LatLng _kMapCenter = LatLng(31.524123, 34.443486);
-  GoogleMapController? mapController;
 
+  static final LatLng _kMapBloodCenter =
+      LatLng(31.52306049379596, 34.437954735976035);
+  GoogleMapController? mapController;
   static final CameraPosition _kInitialPosition =
       CameraPosition(target: _kMapCenter, zoom: 15.0, tilt: 0, bearing: 0);
 
@@ -21,19 +23,11 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
     mapController = _cntlr;
   }
 
-  void _currentLocation() async {
-    LocationData? currentLocation;
-    var location = new Location();
-    try {
-      currentLocation = await location.getLocation();
-    } on Exception {
-      print("failr");
-    }
-
+  void _bloodBankLocation() async {
     mapController!.animateCamera(CameraUpdate.newCameraPosition(
       CameraPosition(
         bearing: 0,
-        target: LatLng(currentLocation!.latitude!, currentLocation.longitude!),
+        target: _kMapBloodCenter,
         zoom: 17.0,
       ),
     ));
@@ -45,22 +39,16 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
           markerId: MarkerId("hospital1"),
           position: _kMapCenter,
           infoWindow: InfoWindow(title: 'hospital'.tr())),
+      Marker(
+          markerId: MarkerId("hospital2"),
+          position: _kMapBloodCenter,
+          infoWindow: InfoWindow(title: 'bankBlood'.tr())),
     };
   }
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: CircleAvatar(
-        backgroundColor: Colors.black,
-        child: IconButton(
-          onPressed: () {
-            _currentLocation();
-          },
-          icon: Icon(Icons.home),
-        ),
-      ),
       body: Stack(
         children: [
           GoogleMap(
@@ -77,6 +65,27 @@ class _MyGoogleMapState extends State<MyGoogleMap> {
               top: 40.0,
             ),
           ),
+          Positioned(
+            top: 20,
+            left: 10,
+            child: ElevatedButton(
+              onPressed: () {
+                _bloodBankLocation();
+              },
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color?>(Colors.red[400])),
+              child: Row(
+                children: [
+                  Icon(Icons.bloodtype),
+                  Text(
+                    "${'goto'.tr()} ${'bankBlood'.tr()}",
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          )
         ],
       ),
     );

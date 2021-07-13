@@ -12,7 +12,7 @@
     "welcomeBack": "Welcome Back",
     "notExist": "Not Available",
     "dateCreatedAt": "Donate for the first time",
-    "dateUpdatedAt": "Last Update",
+    "dateUpdatedAt": "Time",
     "quantity": "Quantity",
     "donationDate": "Donation date",
     "change": "Change Language",
@@ -24,5 +24,7 @@
     "dateOfBirth": "Date Of Birth",
     "identityNumber": "Identity Number",
     "basicData": "Basic information",
+    "bankBlood": "Central blood bank",
+    "goto": "Go To",
     "hospital": "Shifa Hospital"
 }
